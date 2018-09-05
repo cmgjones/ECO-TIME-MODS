@@ -29,27 +29,27 @@ namespace Eco.Mods.TechTree
     using Eco.Shared.Items;
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
-    
-    [Serialized]    
+
+    [Serialized]
     [RequireComponent(typeof(PropertyAuthComponent))]
-    [RequireComponent(typeof(MinimapComponent))]                
-    [RequireComponent(typeof(LinkComponent))]                   
-    [RequireComponent(typeof(PublicStorageComponent))]                
-    public partial class PlasticBinObject : 
-        WorldObject,    
+    [RequireComponent(typeof(MinimapComponent))]
+    [RequireComponent(typeof(LinkComponent))]
+    [RequireComponent(typeof(PublicStorageComponent))]
+    public partial class PlasticBinObject :
+        WorldObject,
         IRepresentsItem
     {
-        public override string FriendlyName { get { return "Storage Chest"; } } 
+        public override string FriendlyName { get { return "Storage Chest"; } }
 
-        public virtual Type RepresentedItemType { get { return typeof(PlasticBinItem); } } 
+        public virtual Type RepresentedItemType { get { return typeof(PlasticBinItem); } }
 
 
         protected override void Initialize()
         {
-            this.GetComponent<MinimapComponent>().Initialize("Storage");                                 
+            this.GetComponent<MinimapComponent>().Initialize("Storage");
             var storage = this.GetComponent<PublicStorageComponent>();
             storage.Initialize(16);
-            storage.Storage.AddInvRestriction(new NotCarriedRestriction()); // can't store block or large items
+            
 
 
         }
@@ -58,22 +58,22 @@ namespace Eco.Mods.TechTree
         {
             base.Destroy();
         }
-       
+
     }
 
     [Serialized]
     public partial class PlasticBinItem :
-        WorldObjectItem<PlasticBinObject> 
+        WorldObjectItem<PlasticBinObject>
     {
-        public override string FriendlyName { get { return "Storage Chest"; } } 
+        public override string FriendlyName { get { return "Storage Chest"; } }
         public override string Description  { get { return  "A container you can store items in."; } }
 
         static PlasticBinItem()
         {
-            
+
         }
 
-        
+
     }
 
 
@@ -88,9 +88,9 @@ namespace Eco.Mods.TechTree
 
             this.Ingredients = new CraftingElement[]
             {
-                new CraftingElement<LogItem>(10),                                                                    
+                new CraftingElement<LogItem>(10),
             };
-            this.CraftMinutes = new ConstantValue(2); 
+            this.CraftMinutes = new ConstantValue(2);
             this.Initialize("Storage Chest", typeof(PlasticBinRecipe));
             CraftingComponent.AddRecipe(typeof(WorkbenchObject), this);
         }
