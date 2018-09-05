@@ -29,28 +29,22 @@ namespace Eco.Mods.TechTree
     using Eco.Shared.Items;
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
-    
-    [Serialized]    
+
+    [Serialized]
     [RequireComponent(typeof(PropertyAuthComponent))]
-    [RequireComponent(typeof(MinimapComponent))]                
-    [RequireComponent(typeof(LinkComponent))]                   
-    [RequireComponent(typeof(PublicStorageComponent))]                
-    public partial class DurexSignObject : 
-        WorldObject,    
+
+    public partial class DurexSignObject :
+        WorldObject,
         IRepresentsItem
     {
-        public override string FriendlyName { get { return "DurexSign"; } } 
+        public override string FriendlyName { get { return "DurexSign"; } }
 
-        public virtual Type RepresentedItemType { get { return typeof(DurexSignItem); } } 
+        public virtual Type RepresentedItemType { get { return typeof(DurexSignItem); } }
 
 
         protected override void Initialize()
         {
-            this.GetComponent<MinimapComponent>().Initialize("Storage");                                 
-            var storage = this.GetComponent<PublicStorageComponent>();
-            storage.Initialize(0);
-            storage.Storage.AddInvRestriction(new NotCarriedRestriction()); // can't store block or large items
-
+            
 
         }
 
@@ -58,22 +52,22 @@ namespace Eco.Mods.TechTree
         {
             base.Destroy();
         }
-       
+
     }
 
     [Serialized]
     public partial class DurexSignItem :
-        WorldObjectItem<DurexSignObject> 
+        WorldObjectItem<DurexSignObject>
     {
-        public override string FriendlyName { get { return "DurexSign"; } } 
+        public override string FriendlyName { get { return "DurexSign"; } }
         public override string Description  { get { return  "A Wonderfull sign"; } }
 
         static DurexSignItem()
         {
-            
+
         }
 
-        
+
     }
 
 
@@ -88,9 +82,9 @@ namespace Eco.Mods.TechTree
 
             this.Ingredients = new CraftingElement[]
             {
-                new CraftingElement<LogItem>(10),                                                                    
+                new CraftingElement<LogItem>(10),
             };
-            this.CraftMinutes = new ConstantValue(2); 
+            this.CraftMinutes = new ConstantValue(2);
             this.Initialize("DurexSign", typeof(DurexSignRecipe));
             CraftingComponent.AddRecipe(typeof(WorkbenchObject), this);
         }

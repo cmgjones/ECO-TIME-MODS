@@ -29,27 +29,22 @@ namespace Eco.Mods.TechTree
     using Eco.Shared.Items;
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
-    
-    [Serialized]    
+
+    [Serialized]
     [RequireComponent(typeof(PropertyAuthComponent))]
-    [RequireComponent(typeof(MinimapComponent))]                
-    [RequireComponent(typeof(LinkComponent))]                   
-    [RequireComponent(typeof(PublicStorageComponent))]                
-    public partial class RecyclingSignObject : 
-        WorldObject,    
+
+    public partial class RecyclingSignObject :
+        WorldObject,
         IRepresentsItem
     {
-        public override string FriendlyName { get { return "RecyclingSign"; } } 
+        public override string FriendlyName { get { return "RecyclingSign"; } }
 
-        public virtual Type RepresentedItemType { get { return typeof(RecyclingSignItem); } } 
+        public virtual Type RepresentedItemType { get { return typeof(RecyclingSignItem); } }
 
 
         protected override void Initialize()
         {
-            this.GetComponent<MinimapComponent>().Initialize("Storage");                                 
-            var storage = this.GetComponent<PublicStorageComponent>();
-            storage.Initialize(0);
-            storage.Storage.AddInvRestriction(new NotCarriedRestriction()); // can't store block or large items
+          
 
 
         }
@@ -58,22 +53,22 @@ namespace Eco.Mods.TechTree
         {
             base.Destroy();
         }
-       
+
     }
 
     [Serialized]
     public partial class RecyclingSignItem :
-        WorldObjectItem<RecyclingSignObject> 
+        WorldObjectItem<RecyclingSignObject>
     {
-        public override string FriendlyName { get { return "RecyclingSign"; } } 
+        public override string FriendlyName { get { return "RecyclingSign"; } }
         public override string Description  { get { return  "A Wonderfull sign"; } }
 
         static RecyclingSignItem()
         {
-            
+
         }
 
-        
+
     }
 
 
@@ -88,9 +83,9 @@ namespace Eco.Mods.TechTree
 
             this.Ingredients = new CraftingElement[]
             {
-                new CraftingElement<LogItem>(10),                                                                    
+                new CraftingElement<LogItem>(10),
             };
-            this.CraftMinutes = new ConstantValue(2); 
+            this.CraftMinutes = new ConstantValue(2);
             this.Initialize("RecyclingSign", typeof(RecyclingSignRecipe));
             CraftingComponent.AddRecipe(typeof(WorkbenchObject), this);
         }

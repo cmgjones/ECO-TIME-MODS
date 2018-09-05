@@ -29,27 +29,22 @@ namespace Eco.Mods.TechTree
     using Eco.Shared.Items;
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
-    
-    [Serialized]    
+
+    [Serialized]
     [RequireComponent(typeof(PropertyAuthComponent))]
-    [RequireComponent(typeof(MinimapComponent))]                
-    [RequireComponent(typeof(LinkComponent))]                   
-    [RequireComponent(typeof(PublicStorageComponent))]                
-    public partial class DiscordSignObject : 
-        WorldObject,    
+
+    public partial class DiscordSignObject :
+        WorldObject,
         IRepresentsItem
     {
-        public override string FriendlyName { get { return "DiscordSign"; } } 
+        public override string FriendlyName { get { return "DiscordSign"; } }
 
-        public virtual Type RepresentedItemType { get { return typeof(DiscordSignItem); } } 
+        public virtual Type RepresentedItemType { get { return typeof(DiscordSignItem); } }
 
 
         protected override void Initialize()
         {
-            this.GetComponent<MinimapComponent>().Initialize("Storage");                                 
-            var storage = this.GetComponent<PublicStorageComponent>();
-            storage.Initialize(0);
-            storage.Storage.AddInvRestriction(new NotCarriedRestriction()); // can't store block or large items
+          
 
 
         }
@@ -58,22 +53,22 @@ namespace Eco.Mods.TechTree
         {
             base.Destroy();
         }
-       
+
     }
 
     [Serialized]
     public partial class DiscordSignItem :
-        WorldObjectItem<DiscordSignObject> 
+        WorldObjectItem<DiscordSignObject>
     {
-        public override string FriendlyName { get { return "DiscordSign"; } } 
+        public override string FriendlyName { get { return "DiscordSign"; } }
         public override string Description  { get { return  "A Wonderfull sign"; } }
 
         static DiscordSignItem()
         {
-            
+
         }
 
-        
+
     }
 
 
@@ -88,9 +83,9 @@ namespace Eco.Mods.TechTree
 
             this.Ingredients = new CraftingElement[]
             {
-                new CraftingElement<LogItem>(10),                                                                    
+                new CraftingElement<LogItem>(10),
             };
-            this.CraftMinutes = new ConstantValue(2); 
+            this.CraftMinutes = new ConstantValue(2);
             this.Initialize("DiscordSign", typeof(DiscordSignRecipe));
             CraftingComponent.AddRecipe(typeof(WorkbenchObject), this);
         }
