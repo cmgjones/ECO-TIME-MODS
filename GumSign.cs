@@ -29,27 +29,22 @@ namespace Eco.Mods.TechTree
     using Eco.Shared.Items;
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
-    
-    [Serialized]    
+
+    [Serialized]
     [RequireComponent(typeof(PropertyAuthComponent))]
-    [RequireComponent(typeof(MinimapComponent))]                
-    [RequireComponent(typeof(LinkComponent))]                   
-    [RequireComponent(typeof(PublicStorageComponent))]                
-    public partial class GumSignObject : 
-        WorldObject,    
+
+    public partial class GumSignObject :
+        WorldObject,
         IRepresentsItem
     {
-        public override string FriendlyName { get { return "GumSign"; } } 
+        public override string FriendlyName { get { return "GumSign"; } }
 
-        public virtual Type RepresentedItemType { get { return typeof(GumSignItem); } } 
+        public virtual Type RepresentedItemType { get { return typeof(GumSignItem); } }
 
 
         protected override void Initialize()
         {
-            this.GetComponent<MinimapComponent>().Initialize("Storage");                                 
-            var storage = this.GetComponent<PublicStorageComponent>();
-            storage.Initialize(0);
-            storage.Storage.AddInvRestriction(new NotCarriedRestriction()); // can't store block or large items
+          
 
 
         }
@@ -58,22 +53,22 @@ namespace Eco.Mods.TechTree
         {
             base.Destroy();
         }
-       
+
     }
 
     [Serialized]
     public partial class GumSignItem :
-        WorldObjectItem<GumSignObject> 
+        WorldObjectItem<GumSignObject>
     {
-        public override string FriendlyName { get { return "GumSign"; } } 
+        public override string FriendlyName { get { return "GumSign"; } }
         public override string Description  { get { return  "A Wonderfull sign"; } }
 
         static GumSignItem()
         {
-            
+
         }
 
-        
+
     }
 
 
@@ -88,9 +83,9 @@ namespace Eco.Mods.TechTree
 
             this.Ingredients = new CraftingElement[]
             {
-                new CraftingElement<LogItem>(10),                                                                    
+                new CraftingElement<LogItem>(10),
             };
-            this.CraftMinutes = new ConstantValue(2); 
+            this.CraftMinutes = new ConstantValue(2);
             this.Initialize("GumSign", typeof(GumSignRecipe));
             CraftingComponent.AddRecipe(typeof(WorkbenchObject), this);
         }
